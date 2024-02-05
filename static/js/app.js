@@ -65,9 +65,38 @@ function barChart(userInput){
         // Store the sample data in a seperate variable
         let sample = data.samples;
 
-        //Filter the sample data based on the input id
-        let sampleValues = sample.filter(value => value.id == userInput);
-    })
+        //Filter the sample data based on the inputed id. Select the first index from the array
+        let sampleSelected = sample.filter(value => value.id == userInput);
+        let isolatedData = sampleSelected[0];
+
+        // With the wanted information now isolated, store sample_values, otu_ids, and otu_labels into variables 
+        let sampleValues = isolatedData.sample_values;
+        let otuIds = isolatedData.otu_ids;
+        let otuLabels = isolatedData.otu_labels;
+
+        //Use .slice and .reverse to correctly display the top ten items 
+        let xAxis = sampleValues.slice(0,10).reverse();
+        let yAxis = otuIds.slice(0,10).map(id => `OTU ${id}`).reverse();     
+        let labels = otuLabels.slice(0,10).reverse();
+
+        //Setup the trace, the layout, and call on plotly to display the chart
+        let trace1 = {
+            x: xAxis,
+            y: yAxis,
+            text: labels,
+            type: "bar",
+            orientation: "h"
+        };
+
+        let layout = {
+            title : "Top Ten OTU's"
+        };
+
+        Plotly.newPlot("bar",[trace1],layout)
 
 
-}
+
+    });
+
+
+};
