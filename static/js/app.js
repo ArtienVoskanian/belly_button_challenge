@@ -22,6 +22,7 @@ function init(){
         let name = names[0];
 
         //Now call the functions that will be defined later to create our demographics, bar chart, and bubble chart
+        metadata(name)
         demographics(name);
         barChart(name);
         bubble(name);
@@ -33,7 +34,7 @@ function init(){
 };
 
 // Now we define our demographics function which will populate the demographics panel
-function demographics(userInput){
+function metadata(userInput){
 
     d3.json(url).then(function(data){
 
